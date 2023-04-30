@@ -1,0 +1,58 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: php
+    build:
+      context: ./php
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+        - NODE_URL=${NODE_URL}
+    volumes:
+      - type: bind
+        source: ${SRC_DIR}
+        target: /home/htdocs
+    depends_on:
+      - mysql
+
+  web:
+    container_name: nginx
+    build: ./nginx
+    volumes:
+      - type: bind
+        source: ./nginx/conf.d
+        target: /etc/nginx/conf.d
+      - type: bind
+        source: ./nginx/logs
+        target: /home/log/nginx
+      - type: bind
+        source: ${SRC_DIR}
+        target: /home/htdocs
+    depends_on:
+      - app
+    environment:
+      TZ: Asia/Tokyo
+    ports:
+      - 80:80
+
+  mysql:
+    container_name: mysql
+    build: ./mysql
+    volumes:
+      - type: volume
+        source: db-store
+        target: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    ports:
+      - 3306:3306 # ローカルホストからアクセスするため開放
+
+  mail:
+    container_name: mailhog
+    image: mailhog/mailhog:v1.0.1
+    platform: linux/x86_64
+    ports:
+      - 8025:8025
+
+volumes:
+  db-store:
