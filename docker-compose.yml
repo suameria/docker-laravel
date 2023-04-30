@@ -13,7 +13,7 @@ services:
         source: ${SRC_DIR}
         target: /home/htdocs
     depends_on:
-      - mysql
+      - db
 
   web:
     container_name: nginx
@@ -35,7 +35,7 @@ services:
     ports:
       - 80:80
 
-  mysql:
+  db:
     container_name: mysql
     build: ./mysql
     volumes:
