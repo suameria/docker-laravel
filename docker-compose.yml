@@ -14,6 +14,8 @@ services:
         target: /home/htdocs
     depends_on:
       - db
+    ports:
+      - 5173:5173 # ローカルホストからアクセスするため開放(Viteのデフォルト開放ポート)
 
   web:
     container_name: nginx
