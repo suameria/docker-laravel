@@ -45,9 +45,22 @@ services:
         source: db-store
         target: /var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: test
+      # MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: password
     ports:
       - 3306:3306 # ローカルホストからアクセスするため開放
+
+  phpmyadmin:
+      container_name: phpmyadmin
+      image: phpmyadmin/phpmyadmin
+      ports:
+          - 8080:80
+      environment:
+          PMA_ARBITRARY: 1
+          PMA_HOSTS: mysql:3306
+          PMA_USER: root
+          PMA_PASSWORD: password
 
   mail:
     container_name: mailhog
