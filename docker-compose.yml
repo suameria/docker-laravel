@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   app:
@@ -7,7 +7,6 @@ services:
       context: ./php
       args:
         - PHP_VERSION=${PHP_VERSION}
-        - NODE_URL=${NODE_URL}
     volumes:
       - type: bind
         source: ${SRC_DIR}
