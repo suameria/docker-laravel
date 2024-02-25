@@ -3,7 +3,7 @@ FROM --platform=linux/amd64 php:${PHP_VERSION}-fpm
 
 RUN apt update
 
-RUN apt install -y vim less git zip unzip
+RUN apt install -y git zip unzip
 
 # PHPの標準の拡張モジュールのインストール(有効化も含む)
 RUN docker-php-ext-install \
