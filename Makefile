@@ -32,3 +32,7 @@ cpf: ## docker container prune (This will remove all stopped containers.)
 PHONY: app
 app: ## docker-compose exec app bash
 	$(MK_DOCKER_COMPOSE_EXEC) app bash
+
+PHONY: db
+db: ## docker-compose exec db bash
+	$(MK_DOCKER_COMPOSE_EXEC) db bash
